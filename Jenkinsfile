@@ -21,13 +21,8 @@ pipeline {
               }
             }
           }
-        stage('Artifactory-Test'){
-            steps{
-                artifactoryUpload failNoOp: false
-            }
-        }
-        /*
-        stage('Artifactory'){
+       
+         stage('Artifactory'){
             steps {
                 script{
                     node {
@@ -59,7 +54,7 @@ pipeline {
                 }
             }
         }
-        */
+        
         stage('Deploy to QA ') {
             steps {
                 echo 'Deploying to QA ....'
