@@ -35,6 +35,7 @@ pipeline {
                          rtMaven.tool = "maven"        
 
                             stage('Artifactory configuration') {
+                                echo 'Configuring Artifactory'
                                 // Tool name from Jenkins configuration
                                 rtMaven.tool = "maven"
                                 // Set Artifactory repositories for dependencies resolution and artifacts deployment.
