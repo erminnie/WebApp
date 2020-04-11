@@ -83,6 +83,19 @@ pipeline {
                 echo 'Deploying to Prod ....'
             }
         }
+        stage('Acceptance Testing') {
+            steps {
+                echo 'Testing..'
+                sh 'mvn -f Acceptancetest/pom.xml test'
+                publishHTML (target : [allowMissing: false,
+                     alwaysLinkToLastBuild: true,
+                     keepAll: true,
+                     reportDir: 'Acceptancetest/target/surefire-reports',
+                     reportFiles: 'index.html',
+                     reportName: 'My Reports',
+                     reportTitles: 'The Report'])
+            }
+        }
         
     }
 }
