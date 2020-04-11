@@ -59,6 +59,7 @@ pipeline {
         stage('Deploy to QA ') {
             steps {
                 echo 'Deploying to QA ....'
+                slackSend channel: '#devops-casestudy-group7', message: 'slackSend "started ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"', teamDomain: 'devops-casestudy', tokenCredentialId: 'slack-key'
                 sh 'mvn package'
                 deploy adapters: [tomcat7(credentialsId: 'tomcat', path: '', url: 'http://18.191.231.46:8080/')], contextPath: '/QAWebapp', onFailure: false, war: '**/*.war'
             }
