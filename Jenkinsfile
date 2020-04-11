@@ -56,7 +56,16 @@ pipeline {
         stage('Functional Testing') {
             steps {
                 echo 'Testing..'
-                sh 'mvn test -Dpom: funtionaltest/pom.xml'
+                sh 'mvn -f funtionaltest/pom.xml test'
+            }
+            post {
+                publishHTML (target : [allowMissing: false,
+                     alwaysLinkToLastBuild: true,
+                     keepAll: true,
+                     reportDir: 'reports',
+                     reportFiles: 'myreport.html',
+                     reportName: 'My Reports',
+                     reportTitles: 'The Report'])
             }
         }
         stage('Deploy') {
