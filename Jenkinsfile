@@ -21,7 +21,7 @@ pipeline {
               }
             }
           }
-        stage('Artifactory configuration'){
+        stage('Artifactory'){
             steps {
                 script{
                     node {
@@ -53,9 +53,10 @@ pipeline {
                 }
             }
         }
-        stage('Test') {
+        stage('Functional Testing') {
             steps {
                 echo 'Testing..'
+                sh 'mvn test -Dpom: funtionaltest/pom.xml'
             }
         }
         stage('Deploy') {
