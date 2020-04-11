@@ -53,6 +53,11 @@ pipeline {
                 }
             }
         }
+        stage('Deploy to QA ') {
+            steps {
+                echo 'Deploying to QA ....'
+            }
+        }
         stage('Functional Testing') {
             steps {
                 echo 'Testing..'
@@ -60,20 +65,35 @@ pipeline {
                 publishHTML (target : [allowMissing: false,
                      alwaysLinkToLastBuild: true,
                      keepAll: true,
-                     reportDir: 'reports',
-                     reportFiles: 'myreport.html',
+                     reportDir: '\functionaltest\target\surefire-reports',
+                     reportFiles: 'index.html',
                      reportName: 'My Reports',
                      reportTitles: 'The Report'])
             }
         }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
-            }
-        }
+        
         stage('Perfomance Testing') {
             steps {
-                blazeMeterTest credentialsId: 'blazemeterdemo', testId: '7907341.taurus', workspaceId: '475906'
+                echo 'Performance Testing'
+                //blazeMeterTest credentialsId: 'blazemeterdemo', testId: '7907341.taurus', workspaceId: '475906'
+            }
+        }
+        stage('Deploy to Prod') {
+            steps {
+                echo 'Deploying to Prod ....'
+            }
+        }
+        stage('Acceptance Testing') {
+            steps {
+                echo 'Testing..'
+                sh 'mvn -f Acceptancetest/pom.xml test'
+                publishHTML (target : [allowMissing: false,
+                     alwaysLinkToLastBuild: true,
+                     keepAll: true,
+                     reportDir: '\Acceptancetest\target\surefire-reports',
+                     reportFiles: 'index.html',
+                     reportName: 'My Reports',
+                     reportTitles: 'The Report'])
             }
         }
     }
