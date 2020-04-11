@@ -58,7 +58,7 @@ pipeline {
                 echo 'Testing..'
                 sh 'mvn -f funtionaltest/pom.xml test'
             }
-            post {
+            {
                 publishHTML (target : [allowMissing: false,
                      alwaysLinkToLastBuild: true,
                      keepAll: true,
