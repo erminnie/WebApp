@@ -31,5 +31,10 @@ pipeline {
                 echo 'Deploying....'
             }
         }
+        stage('Perfomance Testing') {
+            steps {
+                blazeMeterTest credentialsId: 'blazemeterdemo', testId: '7907341.taurus', workspaceId: '475906'
+            }
+        }
     }
 }
