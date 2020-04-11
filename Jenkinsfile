@@ -6,6 +6,10 @@ node {
     def buildInfo
     
  rtMaven.tool = "maven"
+	
+	tools {
+          maven 'maven'
+        }
 
     stage('Clone sources') {
         git url: 'https://github.com/erminnie/WebApp.git'
