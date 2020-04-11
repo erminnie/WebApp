@@ -41,9 +41,9 @@ pipeline {
                                 rtMaven.resolver releaseRepo:'libs-release', snapshotRepo:'libs-snapshot', server: server
                             }
 
-                            stage('Maven build') {
-                                buildInfo = rtMaven.run pom: 'pom.xml', goals: 'clean install'
-                            }
+                            //stage('Maven build') {
+                            //    buildInfo = rtMaven.run pom: 'pom.xml', goals: 'clean install'
+                            //}
 
                             stage('Publish build info') {
                                 server.publishBuildInfo buildInfo
@@ -82,6 +82,7 @@ pipeline {
         stage('Deploy to Prod') {
             steps {
                 echo 'Deploying to Prod ....'
+                deploy adapters: [tomcat7(credentialsId: 'tomcat', path: '', url: 'http://18.216.230.83:8080/')], contextPath: '/ProdWebapp', onFailure: false, war: '**/*.war'
             }
         }
         stage('Acceptance Testing') {
