@@ -56,6 +56,7 @@ pipeline {
         stage('Deploy to QA ') {
             steps {
                 echo 'Deploying to QA ....'
+                deploy adapters: [tomcat7(credentialsId: 'tomcat', path: '', url: 'http://18.191.231.46:8080/')], contextPath: '/QAWebapp', onFailure: false, war: '**/*.war'
             }
         }
         stage('Functional Testing') {
