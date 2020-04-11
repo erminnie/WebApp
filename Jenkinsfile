@@ -56,9 +56,7 @@ pipeline {
         stage('Functional Testing') {
             steps {
                 echo 'Testing..'
-                sh 'mvn -f funtionaltest/pom.xml test'
-            }
-            {
+                sh 'mvn -f functionaltest/pom.xml test'
                 publishHTML (target : [allowMissing: false,
                      alwaysLinkToLastBuild: true,
                      keepAll: true,
