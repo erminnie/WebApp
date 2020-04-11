@@ -10,6 +10,7 @@ pipeline {
             agent any
             steps {
               withSonarQubeEnv('sonar') {
+                slackSend channel: '#devops-casestudy-group7', message: 'slackSend "started Pipeline-by-JenkinsFile <open>"', teamDomain: 'devops-casestudy', tokenCredentialId: 'slack-key'  
                 sh 'mvn clean package sonar:sonar -Dsonar.host.url=http://13.88.184.36:9000/ -Dsonar.login=admin -Dsonar.password=devops123 -Dsonar.sources=. -Dsonar.tests=. -Dsonar.inclusions=**/test/java/servlet/createpage_junit.java -Dsonar.test.exclusions=**/test/java/servlet/createpage_junit.java'
               }
             }
@@ -58,8 +59,7 @@ pipeline {
         
         stage('Deploy to QA ') {
             steps {
-                echo 'Deploying to QA ....'
-                slackSend channel: '#devops-casestudy-group7', message: 'slackSend "started ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"', teamDomain: 'devops-casestudy', tokenCredentialId: 'slack-key'
+                echo 'Deploying to QA ....'          
                 sh 'mvn package'
                 deploy adapters: [tomcat7(credentialsId: 'tomcat', path: '', url: 'http://18.191.231.46:8080/')], contextPath: '/QAWebapp', onFailure: false, war: '**/*.war'
             }
