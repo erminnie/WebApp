@@ -58,6 +58,7 @@ pipeline {
         stage('Deploy to QA ') {
             steps {
                 echo 'Deploying to QA ....'
+                sh 'mvn package'
                 deploy adapters: [tomcat7(credentialsId: 'tomcat', path: '', url: 'http://18.191.231.46:8080/')], contextPath: '/QAWebapp', onFailure: false, war: '**/*.war'
             }
         }
@@ -86,6 +87,7 @@ pipeline {
         stage('Deploy to Prod') {
             steps {
                 echo 'Deploying to Prod ....'
+                sh 'mvn package'
                 deploy adapters: [tomcat7(credentialsId: 'tomcat', path: '', url: 'http://18.216.230.83:8080/')], contextPath: '/ProdWebapp', onFailure: false, war: '**/*.war'
             }
         }
