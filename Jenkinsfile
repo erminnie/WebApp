@@ -10,7 +10,7 @@ pipeline {
             agent any
             steps {
               withSonarQubeEnv('sonar') {
-                slackSend channel: '#devops-casestudy-group7', message: 'slackSend "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})"', teamDomain: 'devops-casestudy', tokenCredentialId: 'slack-key'
+                slackSend channel: '#devops-casestudy-group7', message: 'slackSend "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})", teamDomain: 'devops-casestudy', tokenCredentialId: 'slack-key'
                 //slackSend channel: '#devops-casestudy-group7', message: 'slackSend "started Pipeline-by-JenkinsFile"', teamDomain: 'devops-casestudy', tokenCredentialId: 'slack-key'  
                 sh 'mvn clean package sonar:sonar -Dsonar.host.url=http://13.88.184.36:9000/ -Dsonar.login=admin -Dsonar.password=devops123 -Dsonar.sources=. -Dsonar.tests=. -Dsonar.inclusions=**/test/java/servlet/createpage_junit.java -Dsonar.test.exclusions=**/test/java/servlet/createpage_junit.java'
               }
