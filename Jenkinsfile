@@ -81,7 +81,7 @@ pipeline {
         stage('Perfomance Testing') {
             steps {
                 echo 'Performance Testing'
-                blazeMeterTest credentialsId: 'Blazemeter-Updated', testId: '7912822.taurus', workspaceId: '475895'
+                blazeMeterTest credentialsId: 'Blazemeter-Updated', testId: '7914994.taurus', workspaceId: '475894'
                 //blazeMeterTest credentialsId: 'Blazemeter-Updated', testId: '7895696.taurus', workspaceId: '475895'
                 //blazeMeterTest credentialsId: 'blazemeterdemo', testId: '7907341.taurus', workspaceId: '475906'
             }
